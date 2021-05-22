@@ -1,0 +1,64 @@
+How to create the Training Data: Deep learning
+
+************************************
+patterns (x)- 
+
+"Hi"
+"How are you?" 
+
+tag (y) ---> the tags for patterns
+
+greeting
+
+*************************************
+NLP Basics:
+
+Tokenization: splitting a string into meangingful units(diff categories ex. words, numbers, punctuation)
+
+Stemming: Generate the root form of the words. Crude heuristic that chops off the ends of words. 
+ex:  "organize", "organizes", "organizing"
+----->["organ", "organ", "organ"]
+                OR 
+    "University", "Universe"
+----->["Univers", "Univers"]
+
+To be able to get an accurate response you'd put the string of data (patterns) into a 'bag of words'. All single words within the string are put into an array. The array size will be the size of all the words.
+
+
+        ["Hi", "How", "are", "you"]
+
+"Hi"--->[1, 0, 0, 0]       0(greeting)
+
+        X             |        Y (Y vector)
+
+*************************************
+
+ NLP Preprocessing Pipeline ex:
+==============================
+        "Is anyone there?"
+            |
+            | tokenize
+            V
+        ["is", "anyone", "there"]
+            |
+            | lower + stem
+            V
+        ["is", "anyon", "there", "?"]
+            |
+            | exclude punctuation char.
+            V
+        ["is", "anyon", "there"]
+            |
+            | bag of words
+            V
+        [0,0,0,1,0,1,0,1]
+
+*************************************
+Feed Forward Neural Net:
+
+
+X -----> Neural Net( # of patterns--->#of classes)--->Softmax--->Y
+
+-Input is the bag of words
+
+*************************************
