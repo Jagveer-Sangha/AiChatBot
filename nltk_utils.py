@@ -22,11 +22,11 @@ def bag_of_words(tokenize):
 
 
 # testing
-a = "How long does shipping take?"
-print(a)
-a = tokenize(a)
-print(a)
+# a = "How long does shipping take?"
+# print(a)
+# a = tokenize(a)
+# print(a)
 
-words = ["Organize", "organizes", "organizing"]
-stemmed_words = [stem(w) for w in words]
-print(stemmed_words)
+# words = ["Organize", "organizes", "organizing"]
+# stemmed_words = [stem(w) for w in words]
+# print(stemmed_words)
