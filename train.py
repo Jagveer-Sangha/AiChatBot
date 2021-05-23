@@ -4,7 +4,7 @@ import numpy as np
 
 """PyTorch imports"""
 import torch
-from torch.utils.data import Dataset, DateLoader
+from torch.utils.data import Dataset, DateLoader, dataset
 import torch.nn as nn
 
 
@@ -46,3 +46,25 @@ for(pattern_sentence, tag) in xy:
 # Creating numpy arrays
 x_train = np.array(x_train)
 y_train = np.array(y_train)
+
+
+class ChatDataset(Dataset):
+    def __init__(self):
+        self.n_samples = len(x_train)
+        self.x_data = x_train
+        self.y_data = y_train
+
+    # dataset[idx]
+    def __getitem__(self, index):
+        return self.x_data[idx], self.y_data[idx]
+
+    def __len__(self):
+        return self.n_samples
+
+    # Hyperparameters
+    batch_size = 8
+
+    dataset = ChatDataset()
+    # Multi threading. Makes the loading quicker
+    train_loader = DateLoader(
+        dataset=dataset, batch_size=batch_size, shuffle=True, num_works=2)
