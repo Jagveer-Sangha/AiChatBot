@@ -60,5 +60,9 @@ Feed Forward Neural Net:
 X -----> Neural Net( # of patterns--->#of classes)--->Softmax--->Y
 
 -Input is the bag of words
+-First layer of neural net is 3 of patterns (layer for connected)
+-then hidden layer, another hidden layer
+-output layer 
+
 
 *************************************
