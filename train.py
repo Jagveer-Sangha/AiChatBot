@@ -2,6 +2,12 @@ import json
 from nltk_utils import tokenize, stem, bag_of_words
 import numpy as np
 
+"""PyTorch imports"""
+import torch
+from torch.utils.data import Dataset, DateLoader
+import torch.nn as nn
+
+
 with open('intents.json', 'r') as f:
     intents = json.load(f)
 
@@ -36,3 +42,7 @@ for(pattern_sentence, tag) in xy:
 
     label = tags.index(tag)
     y_train.append(label)
+
+# Creating numpy arrays
+x_train = np.array(x_train)
+y_train = np.array(y_train)
