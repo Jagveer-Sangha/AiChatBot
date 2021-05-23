@@ -6,10 +6,13 @@ import nltk
 stemmer = PorterStemmer()
 
 
+# splits sentence into array of words/tokens
 def tokenize(sentence):
+    # token can be a word, punctuation character, or number
     return nltk.word_tokenize(sentence)
 
 
+# Removes letters at the end to display root
 def stem(word):
     return stemmer.stem(word.lower())
 
