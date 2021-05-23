@@ -56,15 +56,16 @@ class ChatDataset(Dataset):
 
     # dataset[idx]
     def __getitem__(self, index):
-        return self.x_data[idx], self.y_data[idx]
+        return self.x_data[index], self.y_data[index]
 
     def __len__(self):
         return self.n_samples
 
-    # Hyperparameters
-    batch_size = 8
 
-    dataset = ChatDataset()
-    # Multi threading. Makes the loading quicker
-    train_loader = DateLoader(
-        dataset=dataset, batch_size=batch_size, shuffle=True, num_works=2)
+# Hyperparameters
+batch_size = 8
+
+dataset = ChatDataset()
+# Multi threading. Makes the loading quicker
+train_loader = DateLoader(
+    dataset=dataset, batch_size=batch_size, shuffle=True, num_works=2)
