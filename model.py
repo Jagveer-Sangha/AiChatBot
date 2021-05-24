@@ -12,12 +12,16 @@ class NeuralNet(nn.Module):
         # Created 3 different linear layers of the neural net
         # first arg is input second is output
         self.l1 = nn.Linear(input_size, hidden_size)
-        self.l1 = nn.Linear(hidden_size, hidden_size)
-        self.l1 = nn.Linear(hidden_size, num_classes)
+        self.l2 = nn.Linear(hidden_size, hidden_size)
+        self.l3 = nn.Linear(hidden_size, num_classes)
         # Activation function for inbetween
         self.relu = nn.ReLU()
 
+        # Flattens multidimensional data into 1D
+        # self.f1 = nn.Flatten()
+
     def forward(self, x):
+        # out = self.f1(x)
         out = self.l1(x)
         out = self.relu(out)
         out = self.l2(out)
