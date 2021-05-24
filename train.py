@@ -1,4 +1,6 @@
 import json
+
+from torch._C import device
 from nltk_utils import tokenize, stem, bag_of_words
 import numpy as np
 
@@ -34,7 +36,7 @@ all_words = sorted(set(all_words))
 
 # Sorts all separate tags
 tags = sorted(set(tags))
-print(tags)
+# print(tags)
 
 x_train = []
 y_train = []
@@ -48,6 +50,15 @@ for(pattern_sentence, tag) in xy:
 # Creating numpy arrays
 x_train = np.array(x_train)
 y_train = np.array(y_train)
+
+
+# Hyperparameters
+num_epochs = 1000
+batch_size = 8
+learning_rate = 0.001
+input_size = len(x_train[0])
+hidden_size = 8
+output_size = len(tags)
 
 
 class ChatDataset(Dataset):
@@ -64,12 +75,6 @@ class ChatDataset(Dataset):
         return self.n_samples
 
 
-# Hyperparameters
-batch_size = 8
-hidden_size = 8
-output_size = len(tags)
-input_size = len(x_train[0])
-
 # Testing
 print(input_size, len(all_words))
 print(output_size, tags)
@@ -79,6 +84,36 @@ dataset = ChatDataset()
 train_loader = DataLoader(
     dataset=dataset, batch_size=batch_size, shuffle=True, num_workers=0)
 
+# Checks for gpu support
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
 # Create model
-model = NeuralNet(input_size, hidden_size, output_size)
+model = NeuralNet(input_size, hidden_size, output_size).to(device)
+
+
+# loss and optimizer
+criterion = nn.CrossEntropyLoss()
+optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
+
+# Train the model
+for epoch in range(num_epochs):
+    for(words, labels) in train_loader:
+        words = words.to(device)
+        labels = labels.to(dtype=torch.long).to(device)
+
+        # forward
+        outputs = model(words)
+        # will get the predicted output and actual labels
+        loss = criterion(outputs, labels)
+
+        # backward and optimizer step
+        optimizer.zero_grad()
+        # calculates the back propogation
+        loss.backward()
+        optimizer.step()
+
+    if(epoch+1) % 100 == 0:
+        print(f'epoch {epoch+1}/{num_epochs}, loss={loss.item():.4f}')
+
+# Overall final loss is lower if data is flattened
+print(f'final loss, loss={loss.item():.4f}')
