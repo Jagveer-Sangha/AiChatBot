@@ -4,9 +4,11 @@ import numpy as np
 
 """PyTorch imports"""
 import torch
-from torch.utils.data import Dataset, DateLoader, dataset
+from torch.utils.data import Dataset, DataLoader
 import torch.nn as nn
 
+# Import from model.py
+from model import NeuralNet
 
 with open('intents.json', 'r') as f:
     intents = json.load(f)
@@ -64,8 +66,19 @@ class ChatDataset(Dataset):
 
 # Hyperparameters
 batch_size = 8
+hidden_size = 8
+output_size = len(tags)
+input_size = len(x_train[0])
+
+# Testing
+print(input_size, len(all_words))
+print(output_size, tags)
 
 dataset = ChatDataset()
 # Multi threading. Makes the loading quicker
-train_loader = DateLoader(
-    dataset=dataset, batch_size=batch_size, shuffle=True, num_works=2)
+train_loader = DataLoader(
+    dataset=dataset, batch_size=batch_size, shuffle=True, num_workers=0)
+
+
+# Create model
+model = NeuralNet(input_size, hidden_size, output_size)

@@ -4,6 +4,7 @@ import nltk
 # Downloads an initial pkg to avoid tokenize errors
 # nltk.download('punkt')
 
+
 stemmer = PorterStemmer()
 
 
