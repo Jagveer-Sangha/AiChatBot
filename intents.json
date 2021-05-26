@@ -8,7 +8,9 @@
                 "How are you",
                 "Is anyone there?",
                 "Hello",
-                "Good day"
+                "Good day",
+                "Whats up",
+                "yo"
             ],
             "responses": [
                 "Hey :-)",
@@ -22,7 +24,8 @@
             "patterns": [
                 "Bye",
                 "See you later",
-                "Goodbye"
+                "Goodbye",
+                "cya"
             ],
             "responses": [
                 "See you later, thanks for visiting",
